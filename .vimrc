@@ -560,6 +560,31 @@
         endif
     " }
 
+     " cscope {
+          if has("cscope")
+               set csprg=/usr/bin/cscope
+               set csto=0
+               set cst
+               set nocsverb
+               " add any database in current directory
+                    if filereadable("cscope.out")
+					   cs add cscope.out
+					 " else add database pointed to by environment
+                     elseif $CSCOPE_DB != ""
+                        cs add $CSCOPE_DB
+               endif
+          endif
+ " key bindings 
+          nmap <leader>js :cs find s <cword>
+          nmap <leader>jg :cs find g <cword>
+          nmap <leader>jc :cs find c <cword>
+          nmap <leader>jt :cs find t <cword>
+          nmap <leader>je :cs find e <cword>
+          nmap <leader>jf :cs find f <cword>
+          nmap <leader>ji :cs find i <cword>
+          nmap <leader>jd :cs find d <cword>
+     " }cscope config end
+
     " AutoCloseTag {
         " Make it so AutoCloseTag works for xml and xhtml files as well
         au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
