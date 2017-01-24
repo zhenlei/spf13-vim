@@ -100,7 +100,8 @@
     " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
+    " set mouse=a                 " Automatically enable mouse usage
+    set mouse=r                 " disable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
@@ -203,17 +204,18 @@
 
     if has('statusline')
         set laststatus=2
-
-        " Broken down into easily includeable segments
-        set statusline=%<%f\                     " Filename
-        set statusline+=%w%h%m%r                 " Options
-        if !exists('g:override_spf13_bundles')
-            set statusline+=%{fugitive#statusline()} " Git Hotness
-        endif
-        set statusline+=\ [%{&ff}/%Y]            " Filetype
-        set statusline+=\ [%{getcwd()}]          " Current dir
-        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+        "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
     endif
+
+    " add light line config by zhenlei
+    let g:lightline = {
+              \'colorscheme': 'wombat',
+              \ 'active': {
+              \   'left': [ ['mode', 'paste'],
+              \             ['fugitive', 'readonly','absolutepath','modified'] ],
+              \   'right': [ [ 'lineinfo'  ], ['fileformat','filetype','percent']  ]
+              \},
+        \}
 
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
